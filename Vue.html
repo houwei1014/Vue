@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VUe.js</title>
+    <script src="vue.js"></script>
+    <style>
+        .x {
+            color: #00bbee;
+        }
+        .y {
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p>{{ message }}</p>
+    <input type="text" v-model="info">
+    <button @click="see">监视变化</button>
+    <p :style="{color: a? 'green': 'red'}">VUE.JS</p>
+    <p :style="{color: 'red', fontSize: '50px', fontWeight: 'bold', marginLeft: dis}">Vue.js</p>
+    <p :class="[b? 'x': 'y']">VUE.JS</p>
+    <p :class="{true: 'x', false: 'y'}[c]">VUE.JS</p>
+    <p :style="[v, w]">VUE.JS</p>  <!--对象定义样式通过数组绑定-->
+    <ul>
+        <li v-for="(item, index) in u">{{ item + "下标是" + index }}</li>
+    </ul>
+    <ul>
+        <li v-for="(value, key) in z">{{ key }}:{{ value }}</li>
+    </ul>
+    <ul>
+        <li v-for="item in evenNu(u)">{{ item }}</li>
+    </ul>
+    <ul>
+        <li v-for="item in evenNumbers">{{ item }}</li>
+    </ul>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <p>checkedNames:{{ checkedNames }}</p>
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <input type="radio" id="three" value="Three" v-model="picked">
+    <label for="three">Three</label>
+    <p>Picked: {{ picked }}</p>
+    <select v-model="selected">
+        <option disabled value="">请选择</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+    </select>
+    <p>Selected: {{ selected }}</p>
+</div>
+<script>
+    var vm = new Vue({
+        el: "div",
+        data: {
+            info: "",
+            message: "vue监视器使用",
+            a: true,
+            b: true,
+            c: false,
+            dis: '20px',
+            v: {
+                border: "1px solid #ddd"
+            },
+            w: {
+                color: "pink"
+            },
+            u: [5, 4, 3, 2, 1],
+            z: {
+                a: 'a-1',
+                b: 'b-2',
+                c: 'c-3'
+            },
+            t: [10, 5, 8, 7, 4, 1, 2, 3, 6, 9],
+            checkedNames: [],
+            picked: '',
+            selected: ''
+        },
+        methods: {
+            see: function (){
+                alert(this.info);
+            },
+            evenNu: function (u){
+                 return u.filter(function(ar){
+                    return ar % 2 === 0;
+                 }).sort(function (a, b){
+                     return a - b;
+                 });
+            }
+        },
+        watch: {
+            info: function (newLook){
+                this.message = newLook;
+            }
+        },
+        computed: {
+            evenNumbers: function (){
+                return this.u.filter(function(ar){
+                    return ar % 2 === 0;
+                })
+            }
+        }
+    });
+    Vue.set(vm.z, 'd', 'd-4');
+</script>
+</body>
+</html>

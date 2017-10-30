@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 学习</title>
+    <style>
+        .a {
+            color: red;
+        }
+        .b {
+            color: green;
+        }
+    </style>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ message }}</p>
+        <p v-html="info"></p>
+        <p v-text="message" ></p>
+        <input type="text" v-model="x">
+        <!--v-bind:属性 简写成 :属性-->
+        <h2 :class="{true:'b' , false:'a'}[isTrue]">流量First</h2>
+        <h2 :class="[isTrue? 'b' : 'a']">流量Second</h2>
+        <h2 :style="{color: isTrue? 'green' : 'red'}">流量Third</h2>
+        <ul>
+            <li v-for="x in item">{{ x }}</li>
+        </ul>
+        <ol>
+            <li v-for="(key, value) in obj">{{ key }},{{ value }}</li>
+        </ol>
+        <ul>
+            <li v-for="row in complex">客户姓名：{{ row.name }}，客户年龄：{{ row.age }}</li>
+        </ul>
+        <ol>
+            <li v-for="x in 10">{{ x }}</li>
+        </ol>
+        <p v-show="isShow">do something</p>
+        <p v-if="isOk">do anything</p>
+        <!--v-on:事件 简写成 @:事件-->
+        <span @click="jump(1)">点我</span>
+        //////////////////////////////////////////////////////
+        <div v-if="Math.random() > 0.5">
+            随机数大于0.5
+        </div>
+        <div v-else>
+            随机数小于等于0.5
+        </div>
+        ////////////////////////////////////////////////////
+        <div v-if="ran === 'A'">
+            我是A
+        </div>
+        <div v-else-if="ran === 'B'">
+            我是B
+        </div>
+        <div v-else-if="ran === 'C'">
+            我是C
+        </div>
+        ///////////////////////////////////////////////////
+        <div>
+            <p>原始字符串：{{ oldMessage }}</p>
+            <p>methods方法字符串截取：{{ newMessage() }}</p>
+            <p>computed方法字符串截取：{{ newMessage2 }}</p>
+        </div>
+        /////////////////////////////////////////////////
+        <br>
+        事件修饰符
+        .stop
+        .prevent
+        .capture
+        .self
+        .once
+        <br>
+        按键修饰符(别名)
+        .enter
+        .tab
+        .delete (捕获 "删除" 和 "退格" 键)
+        .esc
+        .space
+        .up
+        .down
+        .left
+        .right
+        .ctrl
+        .alt
+        .shift
+        .meta
+        <br>
+        /////////////////////////////////////////////////////////
+        <br>
+        <input type="checkbox" v-model="check">{{ check }}
+        <input type="checkbox" value="香蕉" v-model="fruit">香蕉
+        <input type="checkbox" value="苹果" v-model="fruit">苹果
+        <input type="checkbox" value="哈密瓜" v-model="fruit">哈密瓜
+        <pre>{{ fruit }}</pre>
+        /////////////////////////////////////////////////////////////////////
+        <br>
+        <input type="radio" name="area" value="Google" v-model="area">Google
+        <input type="radio" name="area" value="BaiDu" v-model="area">BaiDu
+        <br>
+        /////////////////////////////////////////////////////////////////////
+        <br>
+        <select v-model="selected">
+            <option value="">选择</option>
+            <option value="www.baidu.com">百度</option>
+            <option value="www.google.com">谷歌</option>
+        </select>
+        <p>网站地址：{{ selected }}</p>
+    </div>
+    <script>
+       new Vue({
+           el: '#app',
+           data: {
+               message: 'Hello World',
+               info: '<b>Vue.js</b>',
+               x: "请填写手机号码",
+               isTrue: false,
+               item: [1, 2, 3, 4, "abc"],
+               obj: {
+                   name: 'Ella',
+                   age: 35,
+                   sex: '女',
+                   title: "明星"
+               },
+               complex: [
+                   {
+                       name: '张三',
+                       age: 27
+                   },
+                   {
+                       name: '李四',
+                       age: 35
+                   },
+                   {
+                       name: '王五',
+                       age: 32
+                   }
+               ],
+               isShow: true,
+               isOk: false,
+               ran: "B",
+               oldMessage: "Hi Mary",
+               check: true,
+               fruit: [],
+               area: "Google",
+               selected: ""
+           },
+           methods: {
+               jump: function (a){
+                   alert(a);
+               },
+               newMessage: function (){
+                   return this.oldMessage.substr(3);
+               }
+           },
+           computed: {
+               newMessage2: function (){
+                   return this.oldMessage.slice(-4);
+               }
+           }
+       })
+    </script>
+</body>
+</html>

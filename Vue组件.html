@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue组件</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<!--<div id="app">
+    &lt;!&ndash;#app是Vue实例挂载的元素，应该在挂载元素范围内使用组件&ndash;&gt;
+    <my-component></my-component>
+</div>
+<div id="app2">
+    <my-component2></my-component2>
+</div>
+<div id="app3">
+    <parent-component>
+    </parent-component>
+</div>-->
+
+<template id="myCom">
+    <ul>
+        <li>子组件数据</li>
+        <li>我的名字: {{ myName }}</li>
+        <li>我的年龄: {{ myAge }}</li>
+    </ul>
+</template>
+
+<div id="app">
+    <!--子组件中定义prop时，使用了camelCase命名法。例如，在prop中定义的myName，在用作特性时需要转换为my-name-->
+    <my-component :my-name="name" :my-age="age"></my-component>
+</div>
+<script>
+/*    //当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，视图将会产生"响应"，即匹配更新为新的值。
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+        },
+        //局部注册组件，指定组件的HTML标签为<my-component>，只能在指定Vue实例下挂载
+        components: {
+            'my-component': {
+                template: '<div>我是局部注册组件</div>'
+            }
+        }
+    });
+
+    //全局注册 可以在任何vue实例下挂载
+    Vue.component('my-component2', {
+        template: '<b>我是全局注册组件</b>'
+    });
+
+    new Vue({
+        el: '#app2'
+    });
+
+    new Vue({
+        el: '#app3',
+        components: {
+            'parent-component': {
+                template: '<span>我是父元素中的元素</span>',
+                'child-component': {
+                    template: '<span>我是在父元素中的子元素</span>'
+                }
+            }
+        }
+    });*/
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            name: 'keepfool',
+            age: 25
+        },
+        components: {
+            'my-component': {
+                template: '#myCom',
+                props: ['myName', 'myAge']
+            }
+        }
+    });
+</script>
+</body>
+</html>

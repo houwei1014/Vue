@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <script src="vue.js"></script>
+    <script src="jquery-3.2.1.js"></script>
+    <style>
+        #enter {
+            border: 1px solid #ddd;
+            outline: none;}
+        label {
+            display: inline-block;
+            vertical-align: middle;
+            width: 38px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            background: lightcoral;
+            color: #fff;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0}
+            ul li {
+                width: 158px;
+                margin: 5px 0;}
+                ul li input[type='checkbox']{
+                    margin-left: 5px;}
+                ul li #content {
+                    margin: 0 5px;
+                    cursor: pointer;
+                    /*text-decoration: line-through;*/
+                }
+                ul li .td {
+                    color: red;
+                }
+                ul li #del {
+                    font-size: 70%;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+    </style>
+</head>
+<body>
+<div  id="app">
+    <input type="text" id="enter" v-model="input_field">
+    <label for="enter" @click="enter()">生成</label>
+    <ul>
+        <li v-for="(item, index) in list">
+            <input type="checkbox" :style="{'display': enterCheckbox? 'none': ''}" @click="item.line=!item.line">
+            <span id="content" :style="{'textDecoration': item.line? 'line-through':'none'}" :class="{'td': item.checkLine}" @click="item.checkLine=!item.checkLine">{{ item.content }}</span>
+            <span id="del" @click="del(index)">删除</span>
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            list: [],
+            enterCheckbox: true,
+            input_field: ''
+        },
+        methods: {
+            enter: function(){
+               var len = $.trim(this.input_field).length;
+               if(len > 0){
+                   this.enterCheckbox = false;
+                   this.list.push({
+                       content: this.input_field,
+                       line: false,
+                       checkLine: false
+                   });
+               }
+               this.input_field = "";
+            },
+            del:function (index){
+                this.list.splice(index, 1);
+            }
+        }
+    });
+</script>
+</html>
